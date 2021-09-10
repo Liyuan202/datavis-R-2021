@@ -30,8 +30,10 @@ str(df)
 # Use the head() function to print the first 3 rows of your data frame.
 head(df,3)
 # Create a new variable to the data frame which has the values of my_vector_2 (remember to save the new variable to the data frame object).
-df$my_vector3 <- (df$my_vector2)
+df$my_vector3 <- my_vector_2
+str(df)
 # Use filter() to print rows of your data frame where values of my_vector are greater than the median value of my_vector.
 install.packages("tidyverse")
 library(tidyverse)
 df %>% filter(my_vector >8)
+str(df)
