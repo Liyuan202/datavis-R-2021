@@ -1,7 +1,10 @@
 ---
 title: "Week 2 Exercises"
+author: "Liyuan E"
+date: "September 20th, 2021"
 output: 
-  html_notebook
+  html_document:
+      toc: true
 ---
 
 # Exercise 1
@@ -10,6 +13,10 @@ output:
 
 Create a new code chunk where you load the tidyverse package. In the chunk settings, suppress any output messages.  
 
+```{r}
+install.packages("tidyverse", repos = "http://cran.us.r-project.org")
+library(tidyverse)
+```
 
 
 #### 1.2
@@ -34,7 +41,18 @@ There is something to fix in three of the variables. Explore the data and descri
 
 **Hint**: You can use e.g. str(), distinct(), and summary() to explore the data.  
 ```{r}
-
+# This chunk is to see the summary of the data
+df %>% summary()
+# The following chunks is to see each variable of the data
+df %>%
+  distinct(gender)
+df %>%
+  distinct(score1)
+df %>%
+  distinct(score2)
+# This chunk is to see the structure of the data
+df %>% str()
+# After exploring the data, the following things need to be corrected: 1. the data do not have id variable which should be added; 2. the missing values in the gender variable coded by 999 which should be re-coded to NA; 3. the group and gender variables need to change to factors; 4. the score2 need to be converted to numerical variable which was done in later exercise.
 ```
 
 
@@ -44,14 +62,30 @@ There is something to fix in three of the variables. Explore the data and descri
 
 Make the corrections you described above.
 ```{r}
-
+# recode gender variable 999 to NA (missing)
+df <- df %>%
+  mutate(gender = na_if(gender, 999))
+# insert a new variable "id"
+df <- df %>%
+  rownames_to_column('sbj_id')
+# convert group and gender variables to factors
+df <- df %>%
+  mutate(group = factor(group), gender = factor(gender), score1 = (score1), score2 = (score2))
 ```
 
 #### 2.2
 
 Count observations by group and gender. Arrange by the number of observations (ascending).
 ```{r}
-
+# count observations by group and gender
+df %>%
+  count(group)
+df %>%
+  count(gender)
+df %>%
+  count(group, gender) %>%
+# Arrange by the number of observations (ascending)
+  arrange(group, gender, (n))
 ```
 
 
@@ -62,7 +96,14 @@ Count observations by group and gender. Arrange by the number of observations (a
 Create a new variable, **score_diff**, that contains the difference between score1 and score2.
 
 ```{r}
-
+# mutate score2 to numerical variable score2_num
+df <- df %>%
+  mutate(score2_num = as.numeric(score2))
+# create score_diff to contain difference between score1 and score2_num
+df$score_diff <- df$score1 - df$score2_num
+df %>%
+# look score_diff
+  distinct(score_diff)
 ```
 
 #### 3.2
@@ -72,7 +113,14 @@ Compute the means of score1, score2, and score_diff.
 **Hint**: Like mutate(), summarise() can take multiple variables in one go.
 
 ```{r}
-
+# Compute means
+df %>%
+  summarise(score1_mean = mean(score1),
+            score2_mean = mean(score2_num),
+            score_diff_mean = mean(score_diff),
+            n = n()) %>%
+# make mean to 2 decimal places
+  mutate(across(is_double, round, 2))
 ```
 
 #### 3.3
@@ -80,7 +128,13 @@ Compute the means of score1, score2, and score_diff.
 Compute the means of score1, score2, and score_diff **by gender**.
 
 ```{r}
+grouped_df <- df %>%
+  group_by(gender)
 
+grouped_df %>%
+  summarise(score1_mean = mean(score1),
+            score2_mean = mean(score2_num),
+            score_diff_mean = mean(score_diff))
 ```
 
 
@@ -90,7 +144,9 @@ Compute the means of score1, score2, and score_diff **by gender**.
 
 Using ggplot2, create a scatter plot with score1 on the x-axis and score2 on the y-axis. 
 ```{r}
-
+df %>%
+  ggplot(aes(x = score1, y = score2)) + 
+  geom_point()
 ```
 
 
@@ -101,8 +157,10 @@ Continuing with the previous plot, colour the points based on gender.
 Set the output figure width to 10 and height to 6.
 
 
-```{r}
-
+```{r, fig.width= 10, fig.height= 6}
+df %>%
+  ggplot(aes(x = score1, y = score2)) + 
+  geom_point()
 ```
 
 
