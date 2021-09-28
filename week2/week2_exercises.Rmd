@@ -85,7 +85,7 @@ df %>%
 df %>%
   count(group, gender) %>%
 # Arrange by the number of observations (ascending)
-  arrange(group, gender, (n))
+  arrange((n)) # the default setting is ascending, arragne (n) is arrange by observations, and if use some variables would change the results
 ```
 
 
