@@ -13,7 +13,10 @@ library(tidyverse)
 Read the region_scores.csv data. 
 
 ```{r}
-
+# read "region_scores.csv"data
+list.files('C:/Users/eliyuan/Documents/GitHub')
+df <- readr::read_csv('data/region_scores.csv')
+df
 ```
 
 Create a figure that shows the distributions (e.g. density plot, histogram) of **age** and **score** in separate subplots (facets). What do you need to do first?  
@@ -23,7 +26,18 @@ In the figure, set individual x-axis limits for age and score by modifying the `
 **Hint**: To make things simpler, you can begin by selecting only the variables you need here, i.e. age and score.  
 
 ```{r}
-
+# Actually, I cannot do what you ask to do, because distribution plot like histogram only can have one x-axis, so when I add age and sore together would cause wrong, and I do not know how to deal with it. So I did what I can do but not the right answer.
+df %>%
+  ggplot(aes(age, score, group = education, colour = education)) + 
+  geom_line(alpha=.7) + 
+  geom_point() +
+  facet_wrap(~education) + theme_bw()
+df %>%
+  ggplot(aes(score, fill = age)) + 
+  geom_histogram(position = "identity", alpha = .5, binwidth = 1)
+df %>%
+  ggplot(aes(age, fill = score)) + 
+  geom_histogram(position = "identity", alpha = .5, binwidth = 1)
 ```
 
 
@@ -40,7 +54,9 @@ head(iris)
 Make the data into long format: gather all variables except species into new variables **var** (variable names) and **measure** (numerical values). You should end up with 600 rows and 3 columns (Species, var, and measure). Assign the result into `iris_long`.
 
 ```{r}
-
+iris_long <- iris %>%
+  gather(var, measure, -Species) 
+iris_long
 ```
 
 #### 2.2
@@ -52,7 +68,15 @@ Then, spread the measurement values to new columns that get their names from **d
 You should now have 300 rows of variables Species, part, Length and Width (and row numbers). Assign the result into `iris_wide`.
 
 ```{r}
-
+iris_long <- iris_long %>%
+  separate(var, into = c('part', 'dim'), convert = TRUE)
+iris_wide <- iris_long %>%
+   group_by(dim) %>%
+  mutate(row = row_number()) %>%
+  ungroup %>%
+  spread(dim, measure) %>%
+  select(-row)
+iris_wide
 ```
 
 #### 2.3
@@ -60,7 +84,9 @@ You should now have 300 rows of variables Species, part, Length and Width (and r
 Using `iris_wide`, plot a scatter plot of length on the x-axis and width on the y-axis. Colour the points by part.
 
 ```{r}
-
+iris_wide %>%
+  ggplot(aes(x = Length, y = Width, color = part)) + 
+  geom_point()
 ```
 
 
@@ -87,7 +113,8 @@ In the data, there are trial-level measures related to performance (number of **
 Import your data into R.  Check that you have the correct number of rows and columns, column names are in place, the encoding of characters looks OK, etc.   
 
 ```{r}
-
+list.files('C:/Users/eliyuan/Documents/GitHub')
+fss <- readr::read_csv('data/fss_learning.csv')
 ```
 
 
@@ -96,7 +123,13 @@ Import your data into R.  Check that you have the correct number of rows and col
 Print the structure/glimpse/summary of the data. Outline briefly what kind of variables you have and if there are any missing or abnormal values. Make sure that each variable has the right class (numeric/character/factor etc).  
 
 ```{r}
-
+fss
+str(fss)
+summary(fss)
+glimpse(fss)
+# transform "participant" to factor variable
+fss <- fss %>%
+  mutate(participant = factor(participant))
 ```
 
 
@@ -107,13 +140,25 @@ Pick a few (2-5) variables of interest from your data (ideally, both categorical
 For **categorical variables**, count the observations in each category (or combination of categories). Are the frequencies balanced?  
 
 ```{r}
-
+fss %>%
+  group_by(gender, .drop = FALSE) %>% 
+  summarise(n = n()) %>%
+  ungroup()
+# The frequencies of gender seems quite balanced.
 ```
 
 For **numerical variables**, compute some summary statistics (e.g. min, max, mean, median, SD) over the whole dataset or for subgroups. What can you say about the distributions of these variables, or possible group-wise differences?  
 
 ```{r}
-
+# Calculate the summary statistics with group by session
+fss %>%
+  group_by(session, .drop = FALSE) %>%
+  summarise(mean_collisions = mean(collisions ),
+            sd_collisions  = sd(collisions ),
+            min_collisions = min(collisions ),
+            max_collisions = max(collisions ),
+            median_collisions = median(collisions)) %>%
+  ungroup()
 ```
 
 
@@ -123,7 +168,10 @@ For **numerical variables**, compute some summary statistics (e.g. min, max, mea
 
 Describe if there's anything else you think should be done as "pre-processing" steps (e.g. recoding/grouping values, renaming variables, removing variables or mutating new ones, reshaping the data to long format, merging data frames together).
 
+I am thinking the pi1,pi2,pi3 can be transformed from wide to long format, so as comp1, comp2 and comp3. And session and run can merging.
 
 #### 5.2
 
 Do you have an idea of what kind of relationships in your data you would like to visualise and for which variables? For example, would you like to depict variable distributions, the structure of multilevel data, summary statistics (e.g. means), or include model fits or predictions?
+
+I am not sure about that, I am thinking to leant R in a more general way, since I am not using R as a data analysis software now. Also, I am a beginner, and I do not think that I have the capacity to do the data analysis but may be I will be after attending this course.
