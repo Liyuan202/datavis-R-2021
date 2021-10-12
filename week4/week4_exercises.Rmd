@@ -26,18 +26,18 @@ In the figure, set individual x-axis limits for age and score by modifying the `
 **Hint**: To make things simpler, you can begin by selecting only the variables you need here, i.e. age and score.  
 
 ```{r}
-# Actually, I cannot do what you ask to do, because distribution plot like histogram only can have one x-axis, so when I add age and sore together would cause wrong, and I do not know how to deal with it. So I did what I can do but not the right answer.
-df %>%
+df_long <- df %>%
+  gather(age, score, -id, -region, -education, -gender)
+df_long
+df_long %>%
   ggplot(aes(age, score, group = education, colour = education)) + 
   geom_line(alpha=.7) + 
   geom_point() +
   facet_wrap(~education) + theme_bw()
-df %>%
+df_long %>%
   ggplot(aes(score, fill = age)) + 
   geom_histogram(position = "identity", alpha = .5, binwidth = 1)
-df %>%
-  ggplot(aes(age, fill = score)) + 
-  geom_histogram(position = "identity", alpha = .5, binwidth = 1)
+
 ```
 
 
