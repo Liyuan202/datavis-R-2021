@@ -1,0 +1,171 @@
+---
+title: "Week 5 Exercises"
+output: html_notebook
+---
+
+Read the file timeuse_tidy.rds with `readRDS()`. The file contains the dataset that we tidied in the exercise session: records of daily time use from participants over multiple days. Note that since the data has been stored as rds (R-specific format), column types and factor levels are as we left them, and don't need to be re-corrected.
+
+```{r}
+list.files('C:/Users/eliyuan/Documents/GitHub')
+df <- readRDS('timeuse_tidy.rds') # read the file
+df # look at the file
+```
+
+
+# Exercise 1
+
+#### 1.1
+
+Create a new variable that contains combined activity classes: "Work or school" (Work, Business, Education), "Free time" (Shopping, Social / Leisure, Home, Vacation), and "Other".  
+
+Calculate the mean time spent on each of the combined activity classes, grouped by **weekday, participant ID, and occ_full_time**.  
+
+```{r}
+# load libraries
+library(ggpubr)
+library(tidyverse)
+library(lubridate)
+# Create a new variables 'activity_combined' contains combined activity
+df_combine <- df %>%
+  mutate(activity_combined = case_when(activity_class %in% c("Work", "Business", "Education") ~ "Work_or_school",
+        activity_class %in% c("Shopping", "Social / Leisure", "Home", "Vacation") ~ "Free_time",
+       TRUE ~ "Other")) # all other activities will be valued other
+# transform the new variable 'activity_combined' to factor variable
+df_combine
+df_combine %>%
+mutate(activity_combined = factor(activity_combined))
+# Calculate the mean and group 
+df_new <- df_combine %>%
+  group_by(weekday, indivID, occ_full_time) %>% 
+  mutate(time_spent = mean(time_spent),
+         n = n()) %>%
+  ungroup()
+df_new
+```
+
+#### 1.2 
+
+Visualise the means you calculated.
+
+```{r fig.width=12, fig.height=8}
+df_new %>%
+ggplot(aes(date, time_spent, color = activity_combined)) + 
+  geom_line(size = 1, alpha = .6) +
+  scale_x_date(date_breaks = "1 week", date_labels = "%Y (%W)", date_minor_breaks = "1 day") +
+  labs(x = "Date", y = "Average time spent (minutes)", colour = "Activity type") + 
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+```{r fig.width=12, fig.height=8}
+df_new %>% 
+  ggplot(aes(date, time_spent, color = activity_class, group=1)) + geom_line(size=1) + 
+  facet_wrap(~activity_class, scales = "free_y") +
+  labs(x = "date", y = "Average time spent", colour = "Activity type", title = " ",
+       subtitle = "Mean calculated from all values") + theme_bw() +
+  theme(legend.position = "none")
+
+df_new %>%
+  ggplot(aes(time_spent)) + geom_density() +
+  labs(x = "Time spent (minutes)", title = "Distribution of all records") +
+  theme_bw()
+```
+
+# Exercise 2
+
+#### 2.1
+
+What is computed in the code chunk below - what do the numbers tell you?  
+
+Can you think of another way to calculate the same thing?  
+
+```{r}
+# The command means keeping only indivID and data in the data frame, arrange by the number of observations in ascending order by date, count observations by date. And the results means how many participants in the date, and the date is in ascending order.
+```
+
+
+```{r}
+df_new %>%
+  distinct(indivID, date) %>%
+  arrange(date) %>%
+  count(date)
+```
+
+
+```{r}
+# Other way (need to go back and see what others)
+df_new_new <- df_new %>%
+  select(c(indivID, date)) %>%
+  group_by(date) %>%
+  summarise(n = n_distinct(indivID)) 
+df_new_new
+```
+
+
+#### 2.2
+
+Plot the numbers from above (use points, lines, or whatever you think is suitable).  
+
+```{r}
+df_new_new %>%
+  ggplot(aes(x = date, y = n)) + 
+  geom_col(position = "dodge") 
+```
+
+
+# Exercise 3
+
+#### 3.1
+ID)
+Count the **total number of participants** in the data.  
+
+```{r}
+library(dplyr)
+# one way
+n_distinct(df_new$indivID)
+# another way
+df_new %>%
+  distinct(indivID)
+```
+
+#### 3.2
+
+For each participant, count the **number of separate days** that they recorded their time use on.  
+
+```{r}
+df_new %>%
+  group_by(indivID, .drop = FALSE) %>%
+  summarise(date) %>%
+  count(date) %>%
+  ungroup()
+```
+
+
+# Exercise 4
+
+Explain step by step what happens in the code chunk below, and what the final figure represents. 
+
+```{r}
+# The final figure represents that: x is date and y is participants; the same participants showed in the different date. And the different month have different color, so there are three months.The line have different points, one line present one participant, and one point present one date, thus one participants would be in different dates.
+```
+
+
+```{r fig.height=20, fig.width=10}
+df_new %>%
+  group_by(indivID) %>% # group by indivID
+  mutate(start_date = min(date)) %>% #calculate the min of date
+  ungroup %>% # ungroup the group by indivID above
+  mutate(indivID = factor(indivID), # change indivID to factor variable
+         indivID = fct_reorder(indivID, start_date) %>% fct_rev()) %>% # reorder and reverse the order
+  ggplot(aes(date, indivID, colour = month(start_date, label = T))) +  # x axis is date, y axis is indivID, and colour will depend on month
+  geom_line() + # draw a line
+  geom_point(size=.5, alpha=.1) + # used to create scatterplots
+  theme_bw() + # simple black and white theme
+  scale_y_discrete(breaks = "none") +
+  labs(x = "Date", y = "", colour = "Starting month") # name x "Date", and use "Starting month" as different color
+```
+
+
+
+
+
