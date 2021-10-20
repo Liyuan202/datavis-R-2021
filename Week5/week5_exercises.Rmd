@@ -93,7 +93,7 @@ df_new %>%
 
 
 ```{r}
-# Other way (need to go back and see what others)
+# Other way
 df_new_new <- df_new %>%
   select(c(indivID, date)) %>%
   group_by(date) %>%
