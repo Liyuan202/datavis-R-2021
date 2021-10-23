@@ -32,7 +32,10 @@ df_w <- data.frame(id = rep(1:60, each = 2) %>% as.character,
 Merge the two data frames together.
 
 ```{r}
-
+df_w # look at df_w data frame
+df_f # look at df_f data frame
+df <- merge(df_w, df_f, all = TRUE) #merge two data frame together
+df # look at the merged data frame
 ```
 
 #### 1.2
@@ -40,7 +43,13 @@ Merge the two data frames together.
 Using the merged data frame, create the **composite variables F_total and W_total, which are the sums of F1-F3 and W1-W3, respectively** (i.e. their values can range from 0 to 9).
 
 ```{r}
-
+df %>%
+  rowwise() %>%
+  mutate(F_total = sum(c(F1, F2, F3))) -> df # create a new variable 'F_total' is the sum of F1, F2 and F3
+df %>%
+  rowwise() %>%
+  mutate(W_total = sum(c(W1, W2, W3))) -> df # create a new variable 'W_total' is the sum of W1, W2 and W3
+df # look at the data frame
 ```
 
 
@@ -51,7 +60,14 @@ Using the merged data frame, create the **composite variables F_total and W_tota
 Visualise the distributions of F_total and W_total for the two groups and measurement sessions (for example as boxplots). 
 
 ```{r}
-
+df %>%
+  ggplot(aes(session, F_total)) + 
+  geom_boxplot() +
+  facet_wrap(~group)
+df %>%
+  ggplot(aes(session, W_total)) + 
+  geom_boxplot() +
+  facet_wrap(~group)
 ```
 
 #### 2.2
@@ -59,7 +75,8 @@ Visualise the distributions of F_total and W_total for the two groups and measur
 Fit a linear regression model with F_total as the DV, and session and group as predictors.  
 
 ```{r}
-
+Model <- lm(F_total ~ session + group, data = df)
+summary(Model)
 ```
 
 #### 2.3
@@ -67,7 +84,14 @@ Fit a linear regression model with F_total as the DV, and session and group as p
 Look at the means of F_total by group and session. How are they linked to the linear regression model coefficients?
 
 ```{r}
-
+# look at the mean of 'F_total' by group and session
+df_mean <- df %>%
+  group_by(group, session) %>%
+  summarise(mean_F_total = mean(F_total)) %>%
+  ungroup
+df_mean
+# how the mean link to lm coefficients
+  #As the result in linear regression model above, the coefficient of session is not statistically significant, but the coefficient of group is significant. After calculating the mean of F_total by group and session, it has been found that in group1, the mean increase from session1 to session2, while in group2, the mean decrease from session1 to session2. 
 ```
 
 
@@ -76,11 +100,33 @@ Look at the means of F_total by group and session. How are they linked to the li
 Visualise the [anscombe dataset](https://rdrr.io/r/datasets/anscombe.html) using ggplot2.
 
 ```{r}
-
+# Read data
+library(datasets)
+anscombe
+str(anscombe)
+summary(anscombe)
+# Calculate mean of x1, x2, x3 and x4 to 'x'; calculate mean of y1, y2, y3 and y4 to 'y'
+library(tidyverse)
+anscombe %>%
+ rowwise() %>%
+ mutate(x = mean(c(x1, x2, x3, x4))) -> anscombe
+anscombe %>%
+ rowwise() %>%
+ mutate(y = mean(c(y1, y2, y3, y4))) -> anscombe
+anscombe
+# Visualization (Lm)
+anscombe_lm <- lm(y ~ x, data = anscombe)
+summary(anscombe_lm)
+library(ggplot2)
+ggplot(anscombe, aes(x = x, y = y)) +
+  geom_point() +
+  stat_smooth(method = "lm", col = "red")
 ```
 
 
 # Exercise 4
+
+## I will do the alternative final assignment
 
 Prepare a **separate R Notebook/Markdown document**, which will be the first draft of your final assignment with your own data. In the draft, include the following:  
 
