@@ -408,13 +408,136 @@ df_mean &lt;- df %&gt;%
 <p>Visualise the <a href="https://rdrr.io/r/datasets/anscombe.html">anscombe dataset</a> using ggplot2.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInJvd3dpc2VfZGYiLCJ0YmxfZGYiLCJ0YmwiLCJkYXRhLmZyYW1lIl0sIm5yb3ciOjExLCJuY29sIjoxMCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxMSB4IDEwIl0sIlJvd3dpc2UiOlsiIl19fSwicmRmIjoiSDRzSUFBQUFBQUFBQnQxVXYyL1RRQlMrMkVuYU9Hb3BKRTNUL0hUU0FnbWlrU0FWS2tPa0V5Q1ZnWUYyNm9BVU9UL2FSZ1RiMkE0MHNIVHB3dEwvZ0FVR3BpNHNtZHNWNXM3TVJZSWxpS25tenZmdTRsb1ZFaXVXenQ5Mzc1Ni83OTQ3MjV1UHR1cktsb0lRa2xHWUREbENLSW84ZkhxL2ZnK2hzRVFtSWJJUW83aEhraEtFME94Wk11SjRHWGtYVmdGdkFaWUJid0RlQmt3RHpnRldBSE9BU2NTdi8wT2Y2LzRyMXYrK1B0RlB2dm0yZnBURTJTLzArb29MRzJjSGhkRW1McjBmRVZiRTZxZng4ZUd6S2w2aTRZM3ZPRWVubFYvNHF0SXdQNXdxK1BxUko0QVQ2NVE4eHFtUkp5RDB5eEJYQVV1ZTNWdGNlc2VlTDFQWnN3T3MxcjBMcDJFK0Rmc3BQeUIyNHhPY0I3OXJ6Ri9vNTArOUJaeUZPcXFnbjZQWmpaZTQ2RDNXd0NYWVp4cnFtNmV5eDRkWWZjSjhGbUU5eGVvVStobklYd0QvQXZoeFBmVW44OGxWV0ovbW9jOVZ3QlQ0RituZC9JaXp6RmZvTHdYTzUrWSt3eExnOHY1RnZReGdFWkMvWDNuQWhjRDVGdGU4QW5BV3pyUGNZdjFVVDloKzFCL1FoOThzTC8yWm5jTWlobjFCdlpsZFZoLzBJZkJoeHl6amRVM1hYblJ0TXBraFE2TGJkbDEzSEVpTThLUTVSUDhDTENqdDNSSHNybUIxd1ZZNUc0cThvY2diaXJ6aDZ1UTNBMlFZc0kvdVdNYkF0T0V2RkFLTXc2WkRNRGlYZkZ6MjhiQ1BSM3c4NnVOVFBqN3Q0ekVmVjN3OEhteVU2UXpOTGlTZzRHSzdyOW04aXpJRVoxNjFIY3R1OW51MjB6UzJJYWl3SUwxREpFd1RDSjR6VGRrRkdhRmRJMmRwczBYSnZmdzRvMjdBTytxMCtzME9ONVhKalB0M05FZXJiVnZrMUNlZTBhRG5wVmxpZGNvd25aNmhrejFKQ2VpNC8rR1FGUWhjR2VqMExldXN0SGNIK3ZPVk5laDBDTDRMWDhmOUozR2hHUkZlVjFmZjZlbGQzcHErMXVyeXltWkptN3lYdVdaYVBkM2hsZERtMVJ6RDBVUUgya2FmUjd6YTBQa2ZXRmQxVlRJSEFBQT0ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBSZWFkIGRhdGFcbmxpYnJhcnkoZGF0YXNldHMpXG5hbnNjb21iZVxuYGBgIn0= -->
+<pre class="r"><code># Read data
+library(datasets)
+anscombe</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6MTEsIm5jb2wiOjgsInN1bW1hcnkiOnsiRGVzY3JpcHRpb24iOlsiZGYgWzExIHggOF0iXX19LCJyZGYiOiJINHNJQUFBQUFBQUFCdDFUUFRNRFVSUjl3aEtiOFIwUkVza21QaVl4WklZMVpoU1p1WU1aQ2dVcWhXWkZrQkc3a2F3aE5CcU54ai9RVUtqVXFXbXAxV29LRFNYZXgzMlAyY0tNMXB0NWU4Njc3OTV6N3QzWlhabGJOZlZWblJCU1R4cm9ydGNvSmRyczByUTVSVWlEang3cTZFVXp3ME9hMUVXSm4rNVd1Z013U1BnQ0EzRUVNWWs0akRpS0dFWnNSMHdoUmhHRFJLNy9vUzkxLzRybTcvZmYrc0dqcC9tYklFVHUyWHFBMlBMemFheTJBb21MR21WeE1LN2Zicy9YMGpEQXdzc3ZFR1hIMUR0MDZOblM1YU1PUXpkY0FMcm1HVm1BVUkwTEtQMGt4ZzNFQkxjN2hzU1pxRTh5MmVkVE1FeStJSXhuUC9hVG5LRjJiM2ZRajM2ZHdsL3A5ei95QzRqZ0hHblVqN0xzN0I3RWVWa1dFdGhuR09mclpySzM1MkFzQ3A5ZXZBK0pPWlYrSCtiM29IOE0vYVNlOFNwOG9pbnhucnJ4UGFjUlErZ2ZaOC9TRlVTRXIrZkgwR3hyTjEraGhIMFdmZ3o2RHNjVm0xRE1WR3hTc3FyS3E2cThxc3FyVG5yTW1zdk9RVVlhdHJDVUU5RnN3TnRWcm1oVlpGY3lxRzlZcnBYWkxOTjZldnJ3bERRNUpiZmcyTFRJeC81enpWTmNWL1lFMnZadDFzbkdXRzU3Mzk0WkcyY0cvRnFzRnVTQkg5d3ZMSDJmS0tXaFZHUGUzaXJZZWRsNzBWclBGL0hRU2lmbUEyZEs1WUx0eWtsb3RKSnhIZGVTZVhyT0tjb0luNDE4ZkFIZDZ2UjYzZ1FBQUE9PSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["x1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["x3"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["x4"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["y1"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["y2"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["y3"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["y4"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"10","2":"10","3":"10","4":"8","5":"8.04","6":"9.14","7":"7.46","8":"6.58"},{"1":"8","2":"8","3":"8","4":"8","5":"6.95","6":"8.14","7":"6.77","8":"5.76"},{"1":"13","2":"13","3":"13","4":"8","5":"7.58","6":"8.74","7":"12.74","8":"7.71"},{"1":"9","2":"9","3":"9","4":"8","5":"8.81","6":"8.77","7":"7.11","8":"8.84"},{"1":"11","2":"11","3":"11","4":"8","5":"8.33","6":"9.26","7":"7.81","8":"8.47"},{"1":"14","2":"14","3":"14","4":"8","5":"9.96","6":"8.10","7":"8.84","8":"7.04"},{"1":"6","2":"6","3":"6","4":"8","5":"7.24","6":"6.13","7":"6.08","8":"5.25"},{"1":"4","2":"4","3":"4","4":"19","5":"4.26","6":"3.10","7":"5.39","8":"12.50"},{"1":"12","2":"12","3":"12","4":"8","5":"10.84","6":"9.13","7":"8.15","8":"5.56"},{"1":"7","2":"7","3":"7","4":"8","5":"4.82","6":"7.26","7":"6.42","8":"7.91"},{"1":"5","2":"5","3":"5","4":"8","5":"5.68","6":"4.74","7":"5.73","8":"6.89"}],"options":{"columns":{"min":{},"max":[10],"total":[8]},"rows":{"min":[10],"max":[10],"total":[11]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RyKGFuc2NvbWJlKVxuYGBgIn0= -->
+<pre class="r"><code>str(anscombe)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiJ2RhdGEuZnJhbWUnOlx0MTEgb2JzLiBvZiAgOCB2YXJpYWJsZXM6XG4gJCB4MTogbnVtICAxMCA4IDEzIDkgMTEgMTQgNiA0IDEyIDcgLi4uXG4gJCB4MjogbnVtICAxMCA4IDEzIDkgMTEgMTQgNiA0IDEyIDcgLi4uXG4gJCB4MzogbnVtICAxMCA4IDEzIDkgMTEgMTQgNiA0IDEyIDcgLi4uXG4gJCB4NDogbnVtICA4IDggOCA4IDggOCA4IDE5IDggOCAuLi5cbiAkIHkxOiBudW0gIDguMDQgNi45NSA3LjU4IDguODEgOC4zMyAuLi5cbiAkIHkyOiBudW0gIDkuMTQgOC4xNCA4Ljc0IDguNzcgOS4yNiA4LjEgNi4xMyAzLjEgOS4xMyA3LjI2IC4uLlxuICQgeTM6IG51bSAgNy40NiA2Ljc3IDEyLjc0IDcuMTEgNy44MSAuLi5cbiAkIHk0OiBudW0gIDYuNTggNS43NiA3LjcxIDguODQgOC40NyA3LjA0IDUuMjUgMTIuNSA1LjU2IDcuOTEgLi4uXG4ifQ== -->
+<pre><code>&#39;data.frame&#39;:   11 obs. of  8 variables:
+ $ x1: num  10 8 13 9 11 14 6 4 12 7 ...
+ $ x2: num  10 8 13 9 11 14 6 4 12 7 ...
+ $ x3: num  10 8 13 9 11 14 6 4 12 7 ...
+ $ x4: num  8 8 8 8 8 8 8 19 8 8 ...
+ $ y1: num  8.04 6.95 7.58 8.81 8.33 ...
+ $ y2: num  9.14 8.14 8.74 8.77 9.26 8.1 6.13 3.1 9.13 7.26 ...
+ $ y3: num  7.46 6.77 12.74 7.11 7.81 ...
+ $ y4: num  6.58 5.76 7.71 8.84 8.47 7.04 5.25 12.5 5.56 7.91 ...</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShhbnNjb21iZSlcbmBgYCJ9 -->
+<pre class="r"><code>summary(anscombe)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgIHgxICAgICAgICAgICAgIHgyICAgICAgICAgICAgIHgzICAgICAgXG4gTWluLiAgIDogNC4wICAgTWluLiAgIDogNC4wICAgTWluLiAgIDogNC4wICBcbiAxc3QgUXUuOiA2LjUgICAxc3QgUXUuOiA2LjUgICAxc3QgUXUuOiA2LjUgIFxuIE1lZGlhbiA6IDkuMCAgIE1lZGlhbiA6IDkuMCAgIE1lZGlhbiA6IDkuMCAgXG4gTWVhbiAgIDogOS4wICAgTWVhbiAgIDogOS4wICAgTWVhbiAgIDogOS4wICBcbiAzcmQgUXUuOjExLjUgICAzcmQgUXUuOjExLjUgICAzcmQgUXUuOjExLjUgIFxuIE1heC4gICA6MTQuMCAgIE1heC4gICA6MTQuMCAgIE1heC4gICA6MTQuMCAgXG4gICAgICAgeDQgICAgICAgICAgIHkxICAgICAgICAgICAgICAgeTIgICAgICAgXG4gTWluLiAgIDogOCAgIE1pbi4gICA6IDQuMjYwICAgTWluLiAgIDozLjEwMCAgXG4gMXN0IFF1LjogOCAgIDFzdCBRdS46IDYuMzE1ICAgMXN0IFF1Ljo2LjY5NSAgXG4gTWVkaWFuIDogOCAgIE1lZGlhbiA6IDcuNTgwICAgTWVkaWFuIDo4LjE0MCAgXG4gTWVhbiAgIDogOSAgIE1lYW4gICA6IDcuNTAxICAgTWVhbiAgIDo3LjUwMSAgXG4gM3JkIFF1LjogOCAgIDNyZCBRdS46IDguNTcwICAgM3JkIFF1Ljo4Ljk1MCAgXG4gTWF4LiAgIDoxOSAgIE1heC4gICA6MTAuODQwICAgTWF4LiAgIDo5LjI2MCAgXG4gICAgICAgeTMgICAgICAgICAgICAgIHk0ICAgICAgICBcbiBNaW4uICAgOiA1LjM5ICAgTWluLiAgIDogNS4yNTAgIFxuIDFzdCBRdS46IDYuMjUgICAxc3QgUXUuOiA2LjE3MCAgXG4gTWVkaWFuIDogNy4xMSAgIE1lZGlhbiA6IDcuMDQwICBcbiBNZWFuICAgOiA3LjUwICAgTWVhbiAgIDogNy41MDEgIFxuIDNyZCBRdS46IDcuOTggICAzcmQgUXUuOiA4LjE5MCAgXG4gTWF4LiAgIDoxMi43NCAgIE1heC4gICA6MTIuNTAwICBcbiJ9 -->
+<pre><code>       x1             x2             x3      
+ Min.   : 4.0   Min.   : 4.0   Min.   : 4.0  
+ 1st Qu.: 6.5   1st Qu.: 6.5   1st Qu.: 6.5  
+ Median : 9.0   Median : 9.0   Median : 9.0  
+ Mean   : 9.0   Mean   : 9.0   Mean   : 9.0  
+ 3rd Qu.:11.5   3rd Qu.:11.5   3rd Qu.:11.5  
+ Max.   :14.0   Max.   :14.0   Max.   :14.0  
+       x4           y1               y2       
+ Min.   : 8   Min.   : 4.260   Min.   :3.100  
+ 1st Qu.: 8   1st Qu.: 6.315   1st Qu.:6.695  
+ Median : 8   Median : 7.580   Median :8.140  
+ Mean   : 9   Mean   : 7.501   Mean   :7.501  
+ 3rd Qu.: 8   3rd Qu.: 8.570   3rd Qu.:8.950  
+ Max.   :19   Max.   :10.840   Max.   :9.260  
+       y3              y4        
+ Min.   : 5.39   Min.   : 5.250  
+ 1st Qu.: 6.25   1st Qu.: 6.170  
+ Median : 7.11   Median : 7.040  
+ Mean   : 7.50   Mean   : 7.501  
+ 3rd Qu.: 7.98   3rd Qu.: 8.190  
+ Max.   :12.74   Max.   :12.500  </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDYWxjdWxhdGUgbWVhbiBvZiB4MSwgeDIsIHgzIGFuZCB4NCB0byAneCc7IGNhbGN1bGF0ZSBtZWFuIG9mIHkxLCB5MiwgeTMgYW5kIHk0IHRvICd5J1xubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
+<pre class="r"><code># Calculate mean of x1, x2, x3 and x4 to &#39;x&#39;; calculate mean of y1, y2, y3 and y4 to &#39;y&#39;
+library(tidyverse)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiV2FybmluZzog56iL6L6R5YyF4oCYdGlkeXZlcnNl4oCZ5piv55SoUueJiOacrDQuMC41IOadpeW7uumAoOeahFxuUmVnaXN0ZXJlZCBTMyBtZXRob2RzIG92ZXJ3cml0dGVuIGJ5ICdkYnBseXInOlxuICBtZXRob2QgICAgICAgICBmcm9tXG4gIHByaW50LnRibF9sYXp5ICAgICBcbiAgcHJpbnQudGJsX3NxbCAgICAgIFxuLS0gQXR0YWNoaW5nIHBhY2thZ2VzIC0tLS0tLS0tLS0tLSB0aWR5dmVyc2UgMS4zLjEgLS1cbuKImiBnZ3Bsb3QyIDMuMy41ICAgICDiiJogcHVycnIgICAwLjMuNFxu4oiaIHRpYmJsZSAgMy4xLjQgICAgIOKImiBkcGx5ciAgIDEuMC43XG7iiJogdGlkeXIgICAxLjEuMyAgICAg4oiaIHN0cmluZ3IgMS40LjBcbuKImiByZWFkciAgIDEuNC4wICAgICDiiJogZm9yY2F0cyAwLjUuMVxuV2FybmluZzog56iL6L6R5YyF4oCYZ2dwbG90MuKAmeaYr+eUqFLniYjmnKw0LjAuNSDmnaXlu7rpgKDnmoRcbldhcm5pbmc6IOeoi+i+keWMheKAmHRpYmJsZeKAmeaYr+eUqFLniYjmnKw0LjAuNSDmnaXlu7rpgKDnmoRcbldhcm5pbmc6IOeoi+i+keWMheKAmHRpZHly4oCZ5piv55SoUueJiOacrDQuMC41IOadpeW7uumAoOeahFxuV2FybmluZzog56iL6L6R5YyF4oCYZHBseXLigJnmmK/nlKhS54mI5pysNC4wLjUg5p2l5bu66YCg55qEXG5XYXJuaW5nOiDnqIvovpHljIXigJhmb3JjYXRz4oCZ5piv55SoUueJiOacrDQuMC41IOadpeW7uumAoOeahFxuLS0gQ29uZmxpY3RzIC0tLS0tLS0tLS0tLS0tLSB0aWR5dmVyc2VfY29uZmxpY3RzKCkgLS1cbnggZHBseXI6OmZpbHRlcigpIG1hc2tzIHN0YXRzOjpmaWx0ZXIoKVxueCBkcGx5cjo6bGFnKCkgICAgbWFza3Mgc3RhdHM6OmxhZygpXG4ifQ== -->
+<pre><code>Warning: 程辑包‘tidyverse’是用R版本4.0.5 来建造的
+Registered S3 methods overwritten by &#39;dbplyr&#39;:
+  method         from
+  print.tbl_lazy     
+  print.tbl_sql      
+-- Attaching packages ------------ tidyverse 1.3.1 --
+√ ggplot2 3.3.5     √ purrr   0.3.4
+√ tibble  3.1.4     √ dplyr   1.0.7
+√ tidyr   1.1.3     √ stringr 1.4.0
+√ readr   1.4.0     √ forcats 0.5.1
+Warning: 程辑包‘ggplot2’是用R版本4.0.5 来建造的
+Warning: 程辑包‘tibble’是用R版本4.0.5 来建造的
+Warning: 程辑包‘tidyr’是用R版本4.0.5 来建造的
+Warning: 程辑包‘dplyr’是用R版本4.0.5 来建造的
+Warning: 程辑包‘forcats’是用R版本4.0.5 来建造的
+-- Conflicts --------------- tidyverse_conflicts() --
+x dplyr::filter() masks stats::filter()
+x dplyr::lag()    masks stats::lag()</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYW5zY29tYmUgJT4lXG4gcm93d2lzZSgpICU+JVxuIG11dGF0ZSh4ID0gbWVhbihjKHgxLCB4MiwgeDMsIHg0KSkpIC0+IGFuc2NvbWJlXG5hbnNjb21iZSAlPiVcbiByb3d3aXNlKCkgJT4lXG4gbXV0YXRlKHkgPSBtZWFuKGMoeTEsIHkyLCB5MywgeTQpKSkgLT4gYW5zY29tYmVcbmFuc2NvbWJlXG5gYGAifQ== -->
+<pre class="r"><code>anscombe %&gt;%
+ rowwise() %&gt;%
+ mutate(x = mean(c(x1, x2, x3, x4))) -&gt; anscombe
+anscombe %&gt;%
+ rowwise() %&gt;%
+ mutate(y = mean(c(y1, y2, y3, y4))) -&gt; anscombe
+anscombe</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInJvd3dpc2VfZGYiLCJ0YmxfZGYiLCJ0YmwiLCJkYXRhLmZyYW1lIl0sIm5yb3ciOjExLCJuY29sIjoxMCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxMSB4IDEwIl0sIlJvd3dpc2UiOlsiIl19fSwicmRmIjoiSDRzSUFBQUFBQUFBQnQxVXYyL1RRQlMreEVuYU9Hb3BKRTNUL0hUU0FnbWlrVW9xQkVPa0V5Q1ZnWUYyNm9BVU9UL2FSZ1RiMkE3VXNIVHB3dEwvZ0FVR3BpNHNtZHNWNXM3TVJZSWxpS25tenZmdTRsb1ZFaXVXenQ5Mzc1Ni83OTQ3MjV1UHRocnlsb3dRa2xDRURDbEtLSW8rZkhxL2NSZWhTSmhNUW1RaFRuR1BKQ1VKb2RtelpDVHdNdkl1ckFEZUFxd0EzZ0M4RFpnQm5BT3NBdVlCVTRoZi80YysxLzFYYlB4OWZhS2Zldk50L1NpRmMxL285UlVYTjg0T2lxTk5YSDQvSXF5RWxVL2o0OE5uTmJ4RXd4dmZjWjVPcTcvd1ZibHBmRGlWOGZValR3QW4xeWw1ak5NalQwRG9WeUN1QUpZOXU3ZTQvSTQ5WDZHeVp3ZFlhWGdYenNCOEd2WlRlVURzeGllNEFIN1htTC9RTDV4NkN6Z0hkZFJBUDArem15OXh5WHVzaWN1d3p3elVOMDlsancreDhvVDVMTUo2bXRVcDlMT1F2d0QrUmZEamVzcFA1cE92c2o3TlE1OXJnR253TDlHNzhSSG5tSy9RWHdxY3o4MTlobVhBNWYyTGVsbkFFaUIvdndxQUM0SHpMZDN6Q3NBNU9NOUttL1ZUT1dIN1VYNUFIMzZ6dk14bmRnNkxHUFlGOVdaM1dYM1FoOENISFRmMTEzVk5mZEd6eUdTR2pERGR0dXU2NDBCaWxDZk5JZm9YWU1IdzNxcGdkd1JyQ0xiR21TUHlISkhuaUR4bmJmS2JBZUlFN0dNN3BqNDBMUGdMaFFBVHNPa1FETTdEUGk3NWVNVEhvejRlOC9FcEg1LzI4YmlQeXo2ZUNEYktzQjJqQndrb3VOZ1pxQmJ2b2dUQm1WY2QyN1JhZzc1bHQvUnRDTW9zU084UWlkQUVndWRNVTNKQlJtalh5VmxhYkRIc1huNmNNVGZnSGJQYmcxYVhtMHBreHYyN3FxM1d0MDF5NmhQUFdORHowaXl4T3FVYmRsL1h5SjdDU2VpNC8rR1FHUWhjR1dyMExldXVkSGFIMnZPVlZlaDBDTDRMWDhmOUozR2hHVkZlVjAvYjZXczkzcHFCMnU3eHltWkptN3lYdVc2WWZjM21sZERtMVczZFZrVUhPdnFBUjd6YTBQa2Y2R2c0bWpJSEFBQT0ifQ== -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["x1"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["x2"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["x3"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["x4"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["y1"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["y2"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["y3"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["y4"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["x"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["y"],"name":[10],"type":["dbl"],"align":["right"]}],"data":[{"1":"10","2":"10","3":"10","4":"8","5":"8.04","6":"9.14","7":"7.46","8":"6.58","9":"9.50","10":"7.8050"},{"1":"8","2":"8","3":"8","4":"8","5":"6.95","6":"8.14","7":"6.77","8":"5.76","9":"8.00","10":"6.9050"},{"1":"13","2":"13","3":"13","4":"8","5":"7.58","6":"8.74","7":"12.74","8":"7.71","9":"11.75","10":"9.1925"},{"1":"9","2":"9","3":"9","4":"8","5":"8.81","6":"8.77","7":"7.11","8":"8.84","9":"8.75","10":"8.3825"},{"1":"11","2":"11","3":"11","4":"8","5":"8.33","6":"9.26","7":"7.81","8":"8.47","9":"10.25","10":"8.4675"},{"1":"14","2":"14","3":"14","4":"8","5":"9.96","6":"8.10","7":"8.84","8":"7.04","9":"12.50","10":"8.4850"},{"1":"6","2":"6","3":"6","4":"8","5":"7.24","6":"6.13","7":"6.08","8":"5.25","9":"6.50","10":"6.1750"},{"1":"4","2":"4","3":"4","4":"19","5":"4.26","6":"3.10","7":"5.39","8":"12.50","9":"7.75","10":"6.3125"},{"1":"12","2":"12","3":"12","4":"8","5":"10.84","6":"9.13","7":"8.15","8":"5.56","9":"11.00","10":"8.4200"},{"1":"7","2":"7","3":"7","4":"8","5":"4.82","6":"7.26","7":"6.42","8":"7.91","9":"7.25","10":"6.6025"},{"1":"5","2":"5","3":"5","4":"8","5":"5.68","6":"4.74","7":"5.73","8":"6.89","9":"5.75","10":"5.7600"}],"options":{"columns":{"min":{},"max":[10],"total":[10]},"rows":{"min":[10],"max":[10],"total":[11]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBWaXN1YWxpemF0aW9uIChMbSlcbmFuc2NvbWJlX2xtIDwtIGxtKHkgfiB4LCBkYXRhID0gYW5zY29tYmUpXG5zdW1tYXJ5KGFuc2NvbWJlX2xtKVxuYGBgIn0= -->
+<pre class="r"><code># Visualization (Lm)
+anscombe_lm &lt;- lm(y ~ x, data = anscombe)
+summary(anscombe_lm)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5DYWxsOlxubG0oZm9ybXVsYSA9IHkgfiB4LCBkYXRhID0gYW5zY29tYmUpXG5cblJlc2lkdWFsczpcbiAgICAgTWluICAgICAgIDFRICAgTWVkaWFuICAgICAgIDNRICAgICAgTWF4IFxuLTAuNzM5MzYgLTAuMTIxNjYgLTAuMDY1NjQgIDAuMTk3NzkgIDEuMDA0OTQgXG5cbkNvZWZmaWNpZW50czpcbiAgICAgICAgICAgIEVzdGltYXRlIFN0ZC4gRXJyb3IgdCB2YWx1ZSBQcig+fHR8KSAgICBcbihJbnRlcmNlcHQpICAzLjA2ODM2ICAgIDAuNjU0MDAgICA0LjY5MiAgMC4wMDExMyAqKiBcbnggICAgICAgICAgICAwLjQ5MjQ4ICAgIDAuMDcwNzggICA2Ljk1OCA2LjYzZS0wNSAqKipcbi0tLVxuU2lnbmlmLiBjb2RlczogIFxuMCDigJgqKirigJkgMC4wMDEg4oCYKirigJkgMC4wMSDigJgq4oCZIDAuMDUg4oCYLuKAmSAwLjEg4oCYIOKAmSAxXG5cblJlc2lkdWFsIHN0YW5kYXJkIGVycm9yOiAwLjQ5MSBvbiA5IGRlZ3JlZXMgb2YgZnJlZWRvbVxuTXVsdGlwbGUgUi1zcXVhcmVkOiAgMC44NDMyLFx0QWRqdXN0ZWQgUi1zcXVhcmVkOiAgMC44MjU4IFxuRi1zdGF0aXN0aWM6IDQ4LjQxIG9uIDEgYW5kIDkgREYsICBwLXZhbHVlOiA2LjYyNmUtMDVcbiJ9 -->
+<pre><code>
+Call:
+lm(formula = y ~ x, data = anscombe)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.73936 -0.12166 -0.06564  0.19779  1.00494 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  3.06836    0.65400   4.692  0.00113 ** 
+x            0.49248    0.07078   6.958 6.63e-05 ***
+---
+Signif. codes:  
+0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.491 on 9 degrees of freedom
+Multiple R-squared:  0.8432,    Adjusted R-squared:  0.8258 
+F-statistic: 48.41 on 1 and 9 DF,  p-value: 6.626e-05</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShnZ3Bsb3QyKVxuZ2dwbG90KGFuc2NvbWJlLCBhZXMoeCA9IHgsIHkgPSB5KSkgK1xuICBnZW9tX3BvaW50KCkgK1xuICBzdGF0X3Ntb290aChtZXRob2QgPSBcImxtXCIsIGNvbCA9IFwicmVkXCIpXG5gYGAifQ== -->
+<pre class="r"><code>library(ggplot2)
+ggplot(anscombe, aes(x = x, y = y)) +
+  geom_point() +
+  stat_smooth(method = &quot;lm&quot;, col = &quot;red&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiYGdlb21fc21vb3RoKClgIHVzaW5nIGZvcm11bGEgJ3kgfiB4J1xuIn0= -->
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-plot-begin eyJoZWlnaHQiOjI3OC43MzkyLCJ3aWR0aCI6NDUxLCJzaXplX2JlaGF2aW9yIjowLCJjb25kaXRpb25zIjpbXX0= -->
+<p><img src="data:image/png;base64,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" /></p>
+<!-- rnb-plot-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
