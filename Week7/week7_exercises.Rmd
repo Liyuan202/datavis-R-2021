@@ -1,0 +1,76 @@
+---
+title: "Week 7 Exercises"
+output: html_notebook
+---
+
+```{r setup}
+library(tidyverse)
+```
+
+# Alternative Assignment 
+
+#### 1.1 Import data
+
+```{r}
+list.files('C:/Users/eliyuan/Documents/GitHub')
+fss <- readr::read_csv('data/fss_learning (1).csv')
+```
+
+
+#### 3.2
+
+Print the structure/glimpse/summary of the data. Outline briefly what kind of variables you have and if there are any missing or abnormal values. Make sure that each variable has the right class (numeric/character/factor etc).  
+
+```{r}
+fss
+str(fss)
+summary(fss)
+glimpse(fss)
+# transform "participant" to factor variable
+fss <- fss %>%
+  mutate(participant = factor(participant))
+```
+
+
+# Exercise 4
+
+Pick a few (2-5) variables of interest from your data (ideally, both categorical and numerical).  
+
+For **categorical variables**, count the observations in each category (or combination of categories). Are the frequencies balanced?  
+
+```{r}
+fss %>%
+  group_by(gender, .drop = FALSE) %>% 
+  summarise(n = n()) %>%
+  ungroup()
+# The frequencies of gender seems quite balanced.
+```
+
+For **numerical variables**, compute some summary statistics (e.g. min, max, mean, median, SD) over the whole dataset or for subgroups. What can you say about the distributions of these variables, or possible group-wise differences?  
+
+```{r}
+# Calculate the summary statistics with group by session
+fss %>%
+  group_by(session, .drop = FALSE) %>%
+  summarise(mean_collisions = mean(collisions ),
+            sd_collisions  = sd(collisions ),
+            min_collisions = min(collisions ),
+            max_collisions = max(collisions ),
+            median_collisions = median(collisions)) %>%
+  ungroup()
+```
+
+
+# Exercise 5
+
+#### 5.1
+
+Describe if there's anything else you think should be done as "pre-processing" steps (e.g. recoding/grouping values, renaming variables, removing variables or mutating new ones, reshaping the data to long format, merging data frames together).
+
+I am thinking the pi1,pi2,pi3 can be transformed from wide to long format, so as comp1, comp2 and comp3. And session and run can merging.
+
+#### 5.2
+
+Do you have an idea of what kind of relationships in your data you would like to visualise and for which variables? For example, would you like to depict variable distributions, the structure of multilevel data, summary statistics (e.g. means), or include model fits or predictions?
+
+I am not sure about that, I am thinking to leant R in a more general way, since I am not using R as a data analysis software now. Also, I am a beginner, and I do not think that I have the capacity to do the data analysis but may be I will be after attending this course.

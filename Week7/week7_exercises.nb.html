@@ -240,11 +240,107 @@ summary {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
+<pre class="r"><code>library(tidyverse)</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<div id="alternative-assignment" class="section level1">
+<h1>Alternative Assignment</h1>
+<div id="import-data" class="section level4">
+<h4>1.1 Import data</h4>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlzdC5maWxlcygnQzovVXNlcnMvZWxpeXVhbi9Eb2N1bWVudHMvR2l0SHViJylcbmBgYCJ9 -->
+<pre class="r"><code>list.files(&#39;C:/Users/eliyuan/Documents/GitHub&#39;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSBcImRhdGF2aXMtUi0yMDIxXCIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gWzJdIFwiZGF0YXZpcy1SLTIwMjJcIiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcbiBbM10gXCJkYXRhdmlzLVItMjAyM1wiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIFs0XSBcImRhdGF2aXMtUi0yMDI0XCIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gWzVdIFwiZGF0YXZpcy1SLTIwMjZcIiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcbiBbNl0gXCJkYXRhdmlzLVItMjAyN1wiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuIFs3XSBcImRhdGF2aXMtUi0yMDI4XCIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXG4gWzhdIFwiaHR0cHMtLS1naXRodWIuY29tLUxpeXVhbjIwMi1JT0RTLXByb2plY3QuZ2l0XCJcbiBbOV0gXCJJT0RTLXByb2plY3RcIiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFxuWzEwXSBcIuaWsOW7uuaWh+S7tuWkuVwiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcbiJ9 -->
+<pre><code> [1] &quot;datavis-R-2021&quot;                               
+ [2] &quot;datavis-R-2022&quot;                               
+ [3] &quot;datavis-R-2023&quot;                               
+ [4] &quot;datavis-R-2024&quot;                               
+ [5] &quot;datavis-R-2026&quot;                               
+ [6] &quot;datavis-R-2027&quot;                               
+ [7] &quot;datavis-R-2028&quot;                               
+ [8] &quot;https---github.com-Liyuan202-IODS-project.git&quot;
+ [9] &quot;IODS-project&quot;                                 
+[10] &quot;新建文件夹&quot;                                   </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZnNzIDwtIHJlYWRyOjpyZWFkX2NzdignZGF0YS9mc3NfbGVhcm5pbmcgKDEpLmNzdicpXG5gYGAifQ== -->
+<pre class="r"><code>fss &lt;- readr::read_csv(&#39;data/fss_learning (1).csv&#39;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6ICdkYXRhL2Zzc19sZWFybmluZyAoMSkuY3N2JyBkb2VzIG5vdCBleGlzdCBpbiBjdXJyZW50IHdvcmtpbmcgZGlyZWN0b3J5ICgnQzovVXNlcnMvZWxpeXVhbi9Eb2N1bWVudHMvR2l0SHViL2RhdGF2aXMtUi0yMDIyL1dlZWs3JykuXG4ifQ== -->
+<pre><code>Error: &#39;data/fss_learning (1).csv&#39; does not exist in current working directory (&#39;C:/Users/eliyuan/Documents/GitHub/datavis-R-2022/Week7&#39;).</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="section" class="section level4">
+<h4>3.2</h4>
+<p>Print the structure/glimpse/summary of the data. Outline briefly what kind of variables you have and if there are any missing or abnormal values. Make sure that each variable has the right class (numeric/character/factor etc).</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZnNzXG5zdHIoZnNzKVxuc3VtbWFyeShmc3MpXG5nbGltcHNlKGZzcylcbiMgdHJhbnNmb3JtIFwicGFydGljaXBhbnRcIiB0byBmYWN0b3IgdmFyaWFibGVcbmZzcyA8LSBmc3MgJT4lXG4gIG11dGF0ZShwYXJ0aWNpcGFudCA9IGZhY3RvcihwYXJ0aWNpcGFudCkpXG5gYGAifQ== -->
+<pre class="r"><code>fss
+str(fss)
+summary(fss)
+glimpse(fss)
+# transform &quot;participant&quot; to factor variable
+fss &lt;- fss %&gt;%
+  mutate(participant = factor(participant))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="exercise-4" class="section level1">
+<h1>Exercise 4</h1>
+<p>Pick a few (2-5) variables of interest from your data (ideally, both categorical and numerical).</p>
+<p>For <strong>categorical variables</strong>, count the observations in each category (or combination of categories). Are the frequencies balanced?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZnNzICU+JVxuICBncm91cF9ieShnZW5kZXIsIC5kcm9wID0gRkFMU0UpICU+JSBcbiAgc3VtbWFyaXNlKG4gPSBuKCkpICU+JVxuICB1bmdyb3VwKClcbiMgVGhlIGZyZXF1ZW5jaWVzIG9mIGdlbmRlciBzZWVtcyBxdWl0ZSBiYWxhbmNlZC5cbmBgYCJ9 -->
+<pre class="r"><code>fss %&gt;%
+  group_by(gender, .drop = FALSE) %&gt;% 
+  summarise(n = n()) %&gt;%
+  ungroup()
+# The frequencies of gender seems quite balanced.</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>For <strong>numerical variables</strong>, compute some summary statistics (e.g. min, max, mean, median, SD) over the whole dataset or for subgroups. What can you say about the distributions of these variables, or possible group-wise differences?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDYWxjdWxhdGUgdGhlIHN1bW1hcnkgc3RhdGlzdGljcyB3aXRoIGdyb3VwIGJ5IHNlc3Npb25cbmZzcyAlPiVcbiAgZ3JvdXBfYnkoc2Vzc2lvbiwgLmRyb3AgPSBGQUxTRSkgJT4lXG4gIHN1bW1hcmlzZShtZWFuX2NvbGxpc2lvbnMgPSBtZWFuKGNvbGxpc2lvbnMgKSxcbiAgICAgICAgICAgIHNkX2NvbGxpc2lvbnMgID0gc2QoY29sbGlzaW9ucyApLFxuICAgICAgICAgICAgbWluX2NvbGxpc2lvbnMgPSBtaW4oY29sbGlzaW9ucyApLFxuICAgICAgICAgICAgbWF4X2NvbGxpc2lvbnMgPSBtYXgoY29sbGlzaW9ucyApLFxuICAgICAgICAgICAgbWVkaWFuX2NvbGxpc2lvbnMgPSBtZWRpYW4oY29sbGlzaW9ucykpICU+JVxuICB1bmdyb3VwKClcbmBgYCJ9 -->
+<pre class="r"><code># Calculate the summary statistics with group by session
+fss %&gt;%
+  group_by(session, .drop = FALSE) %&gt;%
+  summarise(mean_collisions = mean(collisions ),
+            sd_collisions  = sd(collisions ),
+            min_collisions = min(collisions ),
+            max_collisions = max(collisions ),
+            median_collisions = median(collisions)) %&gt;%
+  ungroup()</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="exercise-5" class="section level1">
+<h1>Exercise 5</h1>
+<div id="section-1" class="section level4">
+<h4>5.1</h4>
+<p>Describe if there’s anything else you think should be done as “pre-processing” steps (e.g. recoding/grouping values, renaming variables, removing variables or mutating new ones, reshaping the data to long format, merging data frames together).</p>
+<p>I am thinking the pi1,pi2,pi3 can be transformed from wide to long format, so as comp1, comp2 and comp3. And session and run can merging.</p>
+</div>
+<div id="section-2" class="section level4">
+<h4>5.2</h4>
+<p>Do you have an idea of what kind of relationships in your data you would like to visualise and for which variables? For example, would you like to depict variable distributions, the structure of multilevel data, summary statistics (e.g. means), or include model fits or predictions?</p>
+<p>I am not sure about that, I am thinking to leant R in a more general way, since I am not using R as a data analysis software now. Also, I am a beginner, and I do not think that I have the capacity to do the data analysis but may be I will be after attending this course.</p>
+<!-- rnb-text-end -->
+</div>
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIldlZWsgNyBFeGVyY2lzZXMiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KYGBge3J9DQoNCmBgYA0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIldlZWsgNyBFeGVyY2lzZXMiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7ciBzZXR1cH0NCmxpYnJhcnkodGlkeXZlcnNlKQ0KYGBgDQoNCiMgQWx0ZXJuYXRpdmUgQXNzaWdubWVudCANCg0KIyMjIyAxLjEgSW1wb3J0IGRhdGENCg0KYGBge3J9DQpsaXN0LmZpbGVzKCdDOi9Vc2Vycy9lbGl5dWFuL0RvY3VtZW50cy9HaXRIdWInKQ0KZnNzIDwtIHJlYWRyOjpyZWFkX2NzdignZGF0YS9mc3NfbGVhcm5pbmcgKDEpLmNzdicpDQpgYGANCg0KDQojIyMjIDMuMg0KDQpQcmludCB0aGUgc3RydWN0dXJlL2dsaW1wc2Uvc3VtbWFyeSBvZiB0aGUgZGF0YS4gT3V0bGluZSBicmllZmx5IHdoYXQga2luZCBvZiB2YXJpYWJsZXMgeW91IGhhdmUgYW5kIGlmIHRoZXJlIGFyZSBhbnkgbWlzc2luZyBvciBhYm5vcm1hbCB2YWx1ZXMuIE1ha2Ugc3VyZSB0aGF0IGVhY2ggdmFyaWFibGUgaGFzIHRoZSByaWdodCBjbGFzcyAobnVtZXJpYy9jaGFyYWN0ZXIvZmFjdG9yIGV0YykuICANCg0KYGBge3J9DQpmc3MNCnN0cihmc3MpDQpzdW1tYXJ5KGZzcykNCmdsaW1wc2UoZnNzKQ0KIyB0cmFuc2Zvcm0gInBhcnRpY2lwYW50IiB0byBmYWN0b3IgdmFyaWFibGUNCmZzcyA8LSBmc3MgJT4lDQogIG11dGF0ZShwYXJ0aWNpcGFudCA9IGZhY3RvcihwYXJ0aWNpcGFudCkpDQpgYGANCg0KDQojIEV4ZXJjaXNlIDQNCg0KUGljayBhIGZldyAoMi01KSB2YXJpYWJsZXMgb2YgaW50ZXJlc3QgZnJvbSB5b3VyIGRhdGEgKGlkZWFsbHksIGJvdGggY2F0ZWdvcmljYWwgYW5kIG51bWVyaWNhbCkuICANCg0KRm9yICoqY2F0ZWdvcmljYWwgdmFyaWFibGVzKiosIGNvdW50IHRoZSBvYnNlcnZhdGlvbnMgaW4gZWFjaCBjYXRlZ29yeSAob3IgY29tYmluYXRpb24gb2YgY2F0ZWdvcmllcykuIEFyZSB0aGUgZnJlcXVlbmNpZXMgYmFsYW5jZWQ/ICANCg0KYGBge3J9DQpmc3MgJT4lDQogIGdyb3VwX2J5KGdlbmRlciwgLmRyb3AgPSBGQUxTRSkgJT4lIA0KICBzdW1tYXJpc2UobiA9IG4oKSkgJT4lDQogIHVuZ3JvdXAoKQ0KIyBUaGUgZnJlcXVlbmNpZXMgb2YgZ2VuZGVyIHNlZW1zIHF1aXRlIGJhbGFuY2VkLg0KYGBgDQoNCkZvciAqKm51bWVyaWNhbCB2YXJpYWJsZXMqKiwgY29tcHV0ZSBzb21lIHN1bW1hcnkgc3RhdGlzdGljcyAoZS5nLiBtaW4sIG1heCwgbWVhbiwgbWVkaWFuLCBTRCkgb3ZlciB0aGUgd2hvbGUgZGF0YXNldCBvciBmb3Igc3ViZ3JvdXBzLiBXaGF0IGNhbiB5b3Ugc2F5IGFib3V0IHRoZSBkaXN0cmlidXRpb25zIG9mIHRoZXNlIHZhcmlhYmxlcywgb3IgcG9zc2libGUgZ3JvdXAtd2lzZSBkaWZmZXJlbmNlcz8gIA0KDQpgYGB7cn0NCiMgQ2FsY3VsYXRlIHRoZSBzdW1tYXJ5IHN0YXRpc3RpY3Mgd2l0aCBncm91cCBieSBzZXNzaW9uDQpmc3MgJT4lDQogIGdyb3VwX2J5KHNlc3Npb24sIC5kcm9wID0gRkFMU0UpICU+JQ0KICBzdW1tYXJpc2UobWVhbl9jb2xsaXNpb25zID0gbWVhbihjb2xsaXNpb25zICksDQogICAgICAgICAgICBzZF9jb2xsaXNpb25zICA9IHNkKGNvbGxpc2lvbnMgKSwNCiAgICAgICAgICAgIG1pbl9jb2xsaXNpb25zID0gbWluKGNvbGxpc2lvbnMgKSwNCiAgICAgICAgICAgIG1heF9jb2xsaXNpb25zID0gbWF4KGNvbGxpc2lvbnMgKSwNCiAgICAgICAgICAgIG1lZGlhbl9jb2xsaXNpb25zID0gbWVkaWFuKGNvbGxpc2lvbnMpKSAlPiUNCiAgdW5ncm91cCgpDQpgYGANCg0KDQojIEV4ZXJjaXNlIDUNCg0KIyMjIyA1LjENCg0KRGVzY3JpYmUgaWYgdGhlcmUncyBhbnl0aGluZyBlbHNlIHlvdSB0aGluayBzaG91bGQgYmUgZG9uZSBhcyAicHJlLXByb2Nlc3NpbmciIHN0ZXBzIChlLmcuIHJlY29kaW5nL2dyb3VwaW5nIHZhbHVlcywgcmVuYW1pbmcgdmFyaWFibGVzLCByZW1vdmluZyB2YXJpYWJsZXMgb3IgbXV0YXRpbmcgbmV3IG9uZXMsIHJlc2hhcGluZyB0aGUgZGF0YSB0byBsb25nIGZvcm1hdCwgbWVyZ2luZyBkYXRhIGZyYW1lcyB0b2dldGhlcikuDQoNCkkgYW0gdGhpbmtpbmcgdGhlIHBpMSxwaTIscGkzIGNhbiBiZSB0cmFuc2Zvcm1lZCBmcm9tIHdpZGUgdG8gbG9uZyBmb3JtYXQsIHNvIGFzIGNvbXAxLCBjb21wMiBhbmQgY29tcDMuIEFuZCBzZXNzaW9uIGFuZCBydW4gY2FuIG1lcmdpbmcuDQoNCiMjIyMgNS4yDQoNCkRvIHlvdSBoYXZlIGFuIGlkZWEgb2Ygd2hhdCBraW5kIG9mIHJlbGF0aW9uc2hpcHMgaW4geW91ciBkYXRhIHlvdSB3b3VsZCBsaWtlIHRvIHZpc3VhbGlzZSBhbmQgZm9yIHdoaWNoIHZhcmlhYmxlcz8gRm9yIGV4YW1wbGUsIHdvdWxkIHlvdSBsaWtlIHRvIGRlcGljdCB2YXJpYWJsZSBkaXN0cmlidXRpb25zLCB0aGUgc3RydWN0dXJlIG9mIG11bHRpbGV2ZWwgZGF0YSwgc3VtbWFyeSBzdGF0aXN0aWNzIChlLmcuIG1lYW5zKSwgb3IgaW5jbHVkZSBtb2RlbCBmaXRzIG9yIHByZWRpY3Rpb25zPw0KDQpJIGFtIG5vdCBzdXJlIGFib3V0IHRoYXQsIEkgYW0gdGhpbmtpbmcgdG8gbGVhbnQgUiBpbiBhIG1vcmUgZ2VuZXJhbCB3YXksIHNpbmNlIEkgYW0gbm90IHVzaW5nIFIgYXMgYSBkYXRhIGFuYWx5c2lzIHNvZnR3YXJlIG5vdy4gQWxzbywgSSBhbSBhIGJlZ2lubmVyLCBhbmQgSSBkbyBub3QgdGhpbmsgdGhhdCBJIGhhdmUgdGhlIGNhcGFjaXR5IHRvIGRvIHRoZSBkYXRhIGFuYWx5c2lzIGJ1dCBtYXkgYmUgSSB3aWxsIGJlIGFmdGVyIGF0dGVuZGluZyB0aGlzIGNvdXJzZS4=</div>
 
 
 
@@ -291,7 +387,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("Liyuan_E_Week7_Exercise.Rmd");
+  window.initializeSourceEmbed("week7_exercises.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
