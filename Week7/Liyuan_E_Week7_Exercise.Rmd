@@ -1,0 +1,17 @@
+---
+title: "Week 7 Exercises"
+output: html_notebook
+---
+
+```{r setup}
+library(data.table)
+library(tidyverse)
+
+```
+
+
+```{r}
+list.files('C:/Users/eliyuan/Documents/GitHub')
+df <- readr::read_csv('data/fss_learning(1).csv')
+```
+
