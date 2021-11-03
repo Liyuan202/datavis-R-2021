@@ -9,68 +9,54 @@ library(tidyverse)
 
 # Alternative Assignment 
 
-#### 1.1 Import data
+#### 1.1 Import data and data wrangling
 
 ```{r}
-list.files('C:/Users/eliyuan/Documents/GitHub')
-fss <- readr::read_csv('data/fss_learning (1).csv')
+# import fss_learning data
+fss <- read.csv(file.choose())
+fss
 ```
 
-
-#### 3.2
-
-Print the structure/glimpse/summary of the data. Outline briefly what kind of variables you have and if there are any missing or abnormal values. Make sure that each variable has the right class (numeric/character/factor etc).  
-
 ```{r}
+# look at the data
 fss
 str(fss)
 summary(fss)
 glimpse(fss)
 # transform "participant" to factor variable
-fss <- fss %>%
+fss <- fss %>% 
   mutate(participant = factor(participant))
 ```
 
 
-# Exercise 4
-
-Pick a few (2-5) variables of interest from your data (ideally, both categorical and numerical).  
-
-For **categorical variables**, count the observations in each category (or combination of categories). Are the frequencies balanced?  
-
 ```{r}
-fss %>%
-  group_by(gender, .drop = FALSE) %>% 
-  summarise(n = n()) %>%
-  ungroup()
-# The frequencies of gender seems quite balanced.
+# log-transformed cumrun(x-axis) and duration(y-axis)
+fss_wise <- fss %>%
+  mutate(cumrun_log = log(cumrun+1), 
+  duration_log = log(duration+1))
+fss_wise
 ```
-
-For **numerical variables**, compute some summary statistics (e.g. min, max, mean, median, SD) over the whole dataset or for subgroups. What can you say about the distributions of these variables, or possible group-wise differences?  
-
 ```{r}
-# Calculate the summary statistics with group by session
-fss %>%
-  group_by(session, .drop = FALSE) %>%
-  summarise(mean_collisions = mean(collisions ),
-            sd_collisions  = sd(collisions ),
-            min_collisions = min(collisions ),
-            max_collisions = max(collisions ),
-            median_collisions = median(collisions)) %>%
-  ungroup()
+# participant-wise
+library(datawizard)
+library(effectsize)
+# standardize by participants
+fss_wise_1 <- fss_wise %>%
+  mutate(Z_flow = flow - mean(flow, na.rm = TRUE)/ sd(flow, na.rm = TRUE)) 
+fss_wise_1
 ```
 
 
-# Exercise 5
+```{r fig.width=12, fig.height=10}
+# plot the results
+library(ggplot2)
+ggplot(data = fss_wise_1, aes(x = cumrun_log, y = duration_log, color = Z_flow))+
+  geom_point()+
+  geom_smooth(method = "lm", alpha = .3, color = "red")+
+  labs(x = "In(Cumulative runs)", y = "In(duration)", title = "Performance in CogCarSim")+
+  facet_wrap(~participant) +
+  scale_color_gradient(low = "green", high = "black")+
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
 
-#### 5.1
-
-Describe if there's anything else you think should be done as "pre-processing" steps (e.g. recoding/grouping values, renaming variables, removing variables or mutating new ones, reshaping the data to long format, merging data frames together).
-
-I am thinking the pi1,pi2,pi3 can be transformed from wide to long format, so as comp1, comp2 and comp3. And session and run can merging.
-
-#### 5.2
-
-Do you have an idea of what kind of relationships in your data you would like to visualise and for which variables? For example, would you like to depict variable distributions, the structure of multilevel data, summary statistics (e.g. means), or include model fits or predictions?
-
-I am not sure about that, I am thinking to leant R in a more general way, since I am not using R as a data analysis software now. Also, I am a beginner, and I do not think that I have the capacity to do the data analysis but may be I will be after attending this course.
