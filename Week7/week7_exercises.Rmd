@@ -39,7 +39,7 @@ fss_wise
 ```{r}
 # participant-wise，standardize by participants
 fss_wise_1 <- fss_wise %>%
-  mutate(Z_flow = flow - mean(flow, na.rm = TRUE)/ sd(flow, na.rm = TRUE)) 
+  mutate(Z_flow = (flow - mean(flow, na.rm = TRUE))/ sd(flow, na.rm = TRUE)) 
 fss_wise_1
 ```
 
@@ -49,7 +49,7 @@ fss_wise_1
 library(ggplot2)
 ggplot(data = fss_wise_1, aes(x = cumrun_log, y = duration_log, color = Z_flow))+
   geom_point()+
-  geom_smooth(method = "lm", alpha = .2, color = "red")+
+  geom_smooth(method = "lm", alpha = .15, color = "red")+
   labs(x = "In(Cumulative runs)", y = "In(duration)", title = "Performance in CogCarSim")+
   facet_wrap(~participant) +
   scale_color_gradient(low = "green", high = "black")+
