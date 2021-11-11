@@ -32,14 +32,16 @@ fss <- fss %>%
 ```{r}
 # log-transformed cumrun(x-axis) and duration(y-axis)
 fss_wise <- fss %>%
-  mutate(cumrun_log = log(cumrun+1), 
+  mutate(cumrun_log = log(cumrun), 
   duration_log = log(duration+1))
 fss_wise
 ```
 ```{r}
 # participant-wise，standardize by participants
 fss_wise_1 <- fss_wise %>%
-  mutate(Z_flow = (flow - mean(flow, na.rm = TRUE))/ sd(flow, na.rm = TRUE)) 
+  group_by(participant) %>%
+  mutate(Z_flow = (flow - mean(flow, na.rm = TRUE))/ sd(flow, na.rm = TRUE)) %>%
+  ungroup
 fss_wise_1
 ```
 
